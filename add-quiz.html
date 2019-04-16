@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Quiz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/stayle.css">
+<link rel="stylesheet" href="css/font.css">
+</head>
+    
+<style>
+    
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;background: #222;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+.container {
+  padding: 16px;
+}
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=number] {
+  width:80%;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0 22px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none;
+}
+input:hover,
+.btn:hover {
+  opacity: 1;
+}
+
+/* Set a style for the submit/register button */
+.add {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  opacity: 0.9;
+  position: relative;
+  left: 30%;
+  font-size:1.4vw;
+}
+
+p {
+  color: white;
+  border: none;
+  position: relative;
+  left: 30%;
+  font-size:1.4vw;     
+}
+span{
+    color: red;
+    font-size:1vw; 
+}
+</style>
+<body class="w3-black">
+    <form action="add-qiuzAPI.php" name = "form" method="post">
+    
+    <div class="container">
+    <input type="text" name="admin-id" placeholder="Admin" required><span> * required</span><br>
+    <input type="text" name="title" placeholder="Title" required><span> * required</span><br>
+    <input type="text" name="skill-type" placeholder="Skill type" required><span> * required</span><br>
+    <input type="number" id="myInput" onkeyup="myFunction()" name="qes-num" placeholder="Question number" required><span> * required</span><br>
+    <input type="number" name="pass-score" placeholder="Pass score" required><span> * required</span><br>
+    <input type="text" name="duration" placeholder="Duration" required><span> * required</span><br>
+    </div>
+    <div class="container" id="questions"></div>
+    <div class="container"><input type="submit" class="add" value="ADD"></div>
+    </form>
+</body>
+<script>
+function myFunction() {
+    var input, number, div, txtValue;
+    input = document.getElementById("myInput");
+    number = input.value;
+    div = document.getElementById("questions");
+    txtValue ='<input type="text" name="question" placeholder="Question" required><span> * required</span><br><input type="text" name="answer" placeholder="Answer" required><span> * required</span><br><input type="text" name="a" placeholder="Choose number a" required><span> * required</span><br><input type="text" name="b" placeholder="Choose number b" required><span> * required</span><br><input type="text" name="c" placeholder="Choose number c" required><span> * required</span><br><input type="text" name="d" placeholder="Choose number d"><br><input type="text" name="e" placeholder="Choose number e"><br>';
+    div.innerHTML ="";
+    for(i = 1; i <= number; i++){
+        div.innerHTML += '<p>Question '+i+'</p>' + txtValue;
+    }
+}
+</script>
+</html>
