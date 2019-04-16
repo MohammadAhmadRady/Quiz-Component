@@ -17,8 +17,8 @@
 
     if($quiz)
     {    
-        //response
-        echo $quiz->getid();
+        $data = ['quiz-id' => $quiz->getid()];
+        echo json_encode($data);
     }
 
 ?>
