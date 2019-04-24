@@ -18,7 +18,7 @@ class QuizEntry
         if($this->admin_id && $this->quiz_id && $this->user_id && $this->score )
         {
             $this->entered = new EnteredQuiz($this->quiz_id,$this->admin_id,$this->user_id,$this->score);
-			$entered.addtodb();
+			$this->entered->addtodb();
 		}
     }
 }

@@ -19,7 +19,7 @@ Class EnteredQuiz
 	function addtodb()
     {
         $con=new Connect("localhost","root","","quizcomponent");
-        $query = "INSERT INTO enteredquizes (quizID , adminID , userID , score ) VALUES ('$this->id','$this->admin_id','$this->user_id','$this->score')";
+        $query = "INSERT INTO `enteredquizes`(`quizID`, `adminID`, `userID`, `score`) VALUES ($this->id,$this->admin_id,$this->user_id,$this->score)";
         $con->excutequery($query);
         $con->closecon();
     }
