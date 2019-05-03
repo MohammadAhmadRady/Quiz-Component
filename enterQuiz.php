@@ -1,9 +1,5 @@
 <?php
 require_once ('database.php');
-require_once ('factory.php');
-require_once ('quiz.php');
-require_once ('quizEntry.php');
-require_once ('enterQuiz.php');
 Class EnteredQuiz
 {
 	public $id,$admin_id,$user_id,$score;
