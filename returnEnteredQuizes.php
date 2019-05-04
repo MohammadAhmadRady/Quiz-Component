@@ -2,8 +2,8 @@
 
 	require_once ('database.php');
 
-    $quiz_id = ""
-    $admin_id = ""
+    $quiz_id = "";
+    $admin_id = "";
 	if(isset($_GET['quiz_id']))         
 		$quiz_id=$_GET['quiz_id'];
 	if(isset($_GET['admin_id']))        
