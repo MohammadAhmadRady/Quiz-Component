@@ -23,9 +23,9 @@ class Quiz{
         $query = "INSERT INTO `quizinfo`(`admin-id`, `title`, `skill-type`, `pass-score`, `number-of-questions`, `expected-duration`) VALUES ('$this->admin_id','$this->title','$this->skill_type','$this->pass_score','$this->qes_num','$this->duration')";
         if ($con->excutequery($query))
         {
-            $query2 = "SELECT * FROM `quizinfo`";
-            $result = $con->getrowsnum($query2);
-            $this->id = $result;
+            $query2 = "SELECT * FROM `quizinfo ORDER BY `id` DESC`";
+            $result = mysqli_fetch_assoc($con->getrowsnum($query2));
+            $this->id = $result['id'];
         }
         $con->closecon();
     }

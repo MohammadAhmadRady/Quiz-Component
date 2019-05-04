@@ -1,9 +1,5 @@
 <?php
-
-    require_once ('factory.php');
-    require_once ('quiz.php');
     require_once ('quizEntry.php');
-    require_once ('enterQuiz.php');
     
     $factory = new QuizEntry();
     

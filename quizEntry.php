@@ -1,12 +1,4 @@
 <?php
-
-require_once ('database.php');
-require_once ('question.php');
-require_once ('validation.php');
-require_once ('enterQuiz.php');
-require_once ('factory.php');
-require_once ('quiz.php');
-require_once ('quizEntry.php');
 require_once ('enterQuiz.php');
 
 class QuizEntry

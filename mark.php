@@ -1,47 +1,61 @@
 <?php
-require_once ('database.php');
-$Answer= array(
-  array("user_id"=>5,"admin_id"=>11,"quiz_id"=>15)
- ,array("ID"=>100,"answer"=>a)
- ,array("ID"=>101,"answer"=>b)
- ,array("ID"=>102,"answer"=>c)
- ,array("ID"=>103,"answer"=>d)
- );
-$input=json_encode($Answer);
-function mark($input)
-{
-    $con = new Connect("localhost", "root", "12345678", "quizcomponent");
-    $grade=0;
-    $arr= json_decode($input);
-    $user_id=$arr[0]->user_id;
-    $admin_id=$arr[0]->admin_id;
-    $quiz_id = $arr[0]->quiz_id;
-    unset($arr[0]);
-    foreach($arr as $value)
+
+    require_once ('database.php');
+    require_once ('quizEntry.php');
+       
+    if(isset($_GET['user-id']) && isset($_GET['quiz-id']) && isset($_GET['answers']))
     {
-        $QID = $value->ID;
-        $answer = $value->answer;
-        $query = "SELECT answer FROM questions WHERE ID='$QID'";
-        if ($result=$con->excutequery($query)) {
-            $out = mysqli_fetch_assoc($result);
-            if ($out["answer"] == $answer)
-                $grade++;
+        
+        $user_id = $_GET['user-id'];
+        $quiz_id = $_GET['quiz-id'];
+        $answers = $_GET['answers'];
+        
+        $con = new Connect("localhost", "root", "", "quizcomponent");
+        $sql = "select * FROM `quizinfo` WHERE id='$quiz_id'";
+		$temp = $con->excutequery($sql);
+		$row = mysqli_fetch_assoc($temp);
+		if( $row['number-of-questions'] == 0)
+        {
+            
+            $grade=0;
+            $pass_score = $row['pass-score'];
+            $admin_id = $row['admin-id'];
+            $arr= json_decode($answers);
+
+            foreach($arr as $value)
+            {
+                $QID = $value->ID;
+                $answer = $value->answer;
+                $query = "SELECT answer FROM questions WHERE ID='$QID'";
+                $result = $con->excutequery($query);
+                
+                $out = mysqli_fetch_assoc($result);
+                if ($out['answer'] == $answer)
+                    $grade++;
+            }
+
+            $massage = "failled";
+            if (pass_score <= $grade)   $massage = "passed";
+            
+            $log = $massage." in qiuz with id ".$quiz_id." by score ".$grade;
+            $query = "INSERT INTO logs (log,user_id) VALUES('$log' , '$user_id')";
+            $con->excutequery($query);
+            
+            $json = array("case"=>$massage,"score"=>$grade);
+            $response = json_encode($json);
+        
+            $factory = new QuizEntry();
+            
+            $factory->quiz_id = $quiz_id;
+            $factory->admin_id =$admin_id;
+            $factory->user_id = $user_id;    
+            $factory->score = $grade;
+            
+            $factory->enterQuizz();
+
         }
-    }
-$query = "SELECT pass_score FROM quizinfo WHERE id='$quiz_id'";
-    if ($result=$con->excutequery($query)) {
-        $out = mysqli_fetch_assoc($result);
-        $massage="failed";
-        if ($out["pass_score"] <= $grade)
-            $massage="passed";
-
-        $log=$massage." in qiuz with id ".$quiz_id;
-        $query = "INSERT INTO logs (log,user_id) 
-                      VALUES('$log' , '$user_id')";
-        $con->excutequery($query);
-}
-
-$con->closecon();
-}
-mark($input);
+        
+        $con->closecon();
+    
+    }  
 ?>
