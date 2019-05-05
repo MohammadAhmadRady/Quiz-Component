@@ -19,6 +19,9 @@
 			
 			$sql = "DELETE FROM `enteredquizes` WHERE quizID='$quiz_id'";
 			$con->excutequery($sql);
+			$log = "Admin ".$admin_id." delete quiz ".$quiz_id; 
+			$q = "INSERT INTO `logs`(`content`) VALUES ('$log') ";
+			$con->excutequery($q);
 		}
 		$con->closecon();
 	}

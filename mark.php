@@ -38,7 +38,7 @@
             if (pass_score <= $grade)   $massage = "passed";
             
             $log = $massage." in qiuz with id ".$quiz_id." by score ".$grade;
-            $query = "INSERT INTO logs (log,user_id) VALUES('$log' , '$user_id')";
+            $query = "INSERT INTO `logs`(`content`) VALUES ('$log')" ;
             $con->excutequery($query);
             
             $json = array("case"=>$massage,"score"=>$grade);
