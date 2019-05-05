@@ -9,11 +9,15 @@
 
 	if(isset($_GET['quiz_id']))         $quiz_id=$_GET['quiz_id'];
 	if(isset($_GET['admin_id']))        $admin_id=$_GET['admin_id'];
-    if(isset($_GET['pass_score']))         $pass_score=$_GET['pass_score'];
-	if(isset($_GET['skill_type']))        $skill_type=$_GET['skill_type'];
+    if(isset($_GET['pass_score']))      $pass_score=$_GET['pass_score'];
+	if(isset($_GET['skill_type']))      $skill_type=$_GET['skill_type'];
 
     $con=new Connect("localhost","root","","quizcomponent"); 
 	$sql = "select * from quizinfo ";
+	
+	$log = "User searched for quizzes with specific input"; 
+	$q = "INSERT INTO `logs`(`content`) VALUES ('$log')"
+	$con->excutequery($q);
 	
 	if (isset($_GET['quiz_id']) && isset($_GET['admin_id']) && isset($_GET['pass_score']) && isset($_GET['skill_type']))
 	{

@@ -26,6 +26,9 @@ class Quiz{
             $query2 = "SELECT * FROM `quizinfo ORDER BY `id` DESC`";
             $result = mysqli_fetch_assoc($con->getrowsnum($query2));
             $this->id = $result['id'];
+			$log = "Admin ".$this->admin_id." add quiz ".$this->id; 
+			$q = "INSERT INTO `logs`(`content`) VALUES ('$log') ";
+			$con->excutequery($q);
         }
         $con->closecon();
     }

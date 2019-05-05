@@ -8,10 +8,11 @@
 		$quiz_id=$_GET['quiz_id'];
 	if(isset($_GET['admin_id']))        
 		$admin_id=$_GET['admin_id'];
-
-    $con=new Connect("localhost","root","","quizcomponent"); 
+	$log = "Admin ".$admin_id." get all Quizzes results"; 
+    $q = "INSERT INTO `logs`(`content`) VALUES ('$log') ";
+	$con = new Connect("localhost","root","","quizcomponent"); 
 	$sql = "select * from enteredquizes ";
-	
+	$con->excutequery($q);
 	if (isset($_GET['quiz_id']) && isset($_GET['admin_id']))
 	{
 		$sql .= "where quizID='$quiz_id' and adminID='$admin_id'";
